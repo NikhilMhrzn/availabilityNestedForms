@@ -1,0 +1,55 @@
+<div class="main container">
+    <form class="form-group" [formGroup]="availabilityForm" (ngSubmit)="onSubmit()">
+        <div class="title">
+            <label>Title</label>
+            <input name="titleInput" type="text" placeholder="e.g. Summer Holidays" class="form-control" formControlName="title">
+            <span *ngIf="!availabilityForm.get('title').valid && availabilityForm.get('title').touched" class="help-block">
+                Please enter a title
+            </span>
+        </div>
+
+
+        <div class="effective-dates">
+            <label>Effective Dates</label>
+            <select name="effective-select" class="form-control" formControlName="effectiveDates" (change)="dataLiney($event)">
+              <option *ngFor='let choice of effectivedata' >{{choice}}</option>
+            </select>
+            <!-- <span *ngIf="!availabilityForm.get('effectiveDates').valid && availabilityForm.get('effectiveDates').touched" class="help-block">
+                Please select a Effective Dates
+            </span> -->
+        </div>
+
+
+
+        <div class="specific-dates-optional" *ngIf="showDates">
+            <div class="start-date">
+                <label>Start Date</label>
+                <input name="startDate" type="date" class="form-control" formControlName="startDate" [ngClass]="{'availabilityForm.get(startDate).valid': showDates}">
+                <span *ngIf="!availabilityForm.get('startDate').valid && availabilityForm.get('startDate').touched" class="help-block">
+                    Please enter a Start Date
+                </span>
+            </div>
+
+            <div class="end-date">
+                <label>End Date</label>
+                <input name="endDate" type="date" class="form-control" placeholder="(Optional)" formControlName="endDate">
+            </div>
+
+            <div>
+                <label>Repeat Every</label>
+                <select name="repeatTime" class="form-control" formControlName="repeatTime">
+              <option *ngFor="let choices of repeatdata">{{choices}}</option>
+             </select>
+                <!-- <span *ngIf="!availabilityForm.get('repeatTime').valid && availabilityForm.get('repeatTime').touched" class="help-block">
+                Please select repeat time
+            </span> -->
+            </div>
+
+        </div>
+
+
+        <button class="btn btn-primary" type="submit">Save</button> <span style="margin-top: 20px;">or</span>
+        <button class="btn btn-default">Cancel</button>
+
+    </form>
+</div>
